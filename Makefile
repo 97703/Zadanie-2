@@ -1,30 +1,52 @@
 # PLIK MAKEFILE #
 
- .PHONY: clear
+# wykorzystane zmienne standardowe:
 
-Code2: Code2.o libObliczPole.a libObliczObjetosc.so
-	gcc -o Code2 Code2.o libObliczPole.a libObliczObjetosc.so -Wl,-rpath,.
+# zmienne kompilatora
+
+AR = ar
+CC = gcc
+CFLAGS = -g
+
+# zmienna główna programu
+
+PROGRAM = Code2
+
+# zmienna polecenia i opcji wyczyszczenia plików kompilacyjnych
+
+CLR = rm -f
+
+# zmienna wskazująca na pliki kompilacyjne
+
+CLR_F = ./*.o ./*.a ./*.so ./$(PROGRAM)
+
+# zmienna ścieżki biblioteki
+
+LIBPATH=.
+
+# wykorzystane zmienne automatyczne:
+
+# $< $@ $^
+
+ .PHONY: clean
+
+$(PROGRAM): Code2.o libObliczPole.a libObliczObjetosc.so
+	$(CC) $(CFLAGS) -o $@ $^ -Wl,-rpath=$(LIBPATH)
 	
 Code2.o: Code2.c
-	gcc -c Code2.c
-
-# utwórz bibliotekę statyczną dla obliczenia pola kwadratu
-
+	$(CC) $(CFLAGS) -c $<
+	
 libObliczPole.a: ObliczPole.o
-	ar cr libObliczPole.a ObliczPole.o
-
-# utwórz bibliotekę dynamiczną dla obliczenia objętości sześcianu 
+	$(AR) cr $@ $<
 
 libObliczObjetosc.so: ObliczObjetosc.o
-	gcc -shared -o libObliczObjetosc.so ObliczObjetosc.o
+	$(CC) $(CFLAGS) -shared -o $@ $<
 
 ObliczPole.o: ObliczPole.c
-	gcc -c ObliczPole.c
+	$(CC) $(CFLAGS) -c $<
 
 ObliczObjetosc.o: ObliczObjetosc.c
-	gcc -c -fPIC ObliczObjetosc.c
-
-# wyczyść utworzone pliki - niestandardowe polecenie dołączane do make -f Makefile
-
+	$(CC) $(CFLAGS) -c -fPIC $<
+	
 clear:
-	rm -f ./*.o ./*.a ./*.so ./Code2
+	$(CLR) $(CLR_F)
