@@ -2,26 +2,13 @@
 
 # wykorzystane zmienne standardowe:
 
-# zmienne kompilatora
-
 AR = ar
 CC = gcc
 CFLAGS = -g
 
-# zmienna główna programu
-
 PROGRAM = Code2
-
-# zmienna polecenia i opcji wyczyszczenia plików kompilacyjnych
-
 CLR = rm -f
-
-# zmienna wskazująca na pliki kompilacyjne
-
 CLR_F = ./*.o ./*.a ./*.so ./$(PROGRAM)
-
-# zmienna ścieżki biblioteki
-
 LIBPATH=.
 
 # wykorzystane zmienne automatyczne:
@@ -29,24 +16,36 @@ LIBPATH=.
 # $< $@ $^
 
  .PHONY: clean
-
-$(PROGRAM): Code2.o libObliczPole.a libObliczObjetosc.so
-	$(CC) $(CFLAGS) -o $@ $^ -Wl,-rpath=$(LIBPATH)
-	
-Code2.o: Code2.c
+ 
+ # wskaż kompilatorowi wszystkie sufiksy (przyrostki) zawartych plików
+ 
+ .SUFFIXES: .c .o .a .so .h
+ 
+ # skompiluj pliki z sufiksami .c, .o z identycznymi nazwami
+ 
+.c.o:
 	$(CC) $(CFLAGS) -c $<
 	
+# skompiluj program główny	
+	
+.o:
+	$(CC) $(CFLAGS) -o $@ $^ -Wl,-rpath=$(LIBPATH)
+
+	
+$(PROGRAM): Code2.o libObliczPole.a libObliczObjetosc.so
+Code2.o: Code2.c
+
+# skompiluj bibliotekę statyczną (niemożność wykorzystania reguły przyrostków - inna nazwa)
+
 libObliczPole.a: ObliczPole.o
 	$(AR) cr $@ $<
-
+	
+# skompiluj bibliotekę dynamiczną (niemożność wykorzystania reguły przyrostków - inna nazwa)
+	
 libObliczObjetosc.so: ObliczObjetosc.o
 	$(CC) $(CFLAGS) -shared -o $@ $<
-
 ObliczPole.o: ObliczPole.c
-	$(CC) $(CFLAGS) -c $<
-
 ObliczObjetosc.o: ObliczObjetosc.c
-	$(CC) $(CFLAGS) -c -fPIC $<
-	
+
 clear:
 	$(CLR) $(CLR_F)
