@@ -115,31 +115,31 @@ Pozostałe elementy są wynikiem kompilacji i/lub instalacji programu, z tego po
 <br />
 
 W repozytorium na głównej gałęzi (tak zwanej gałęzi **« _main_ »**) zostały utworzone commity:
-- [x] ```commit 1. → Inicjalizacja repozytorium.```
+- [x] [```commit 1. → Inicjalizacja repozytorium.```](https://github.com/97703/Zadanie-2/commit/51c37dc6ba7da974f1f15fb2ebf6cfea5c017078)
 
 	▶ Utworzenie repozytorium.\
 	▶ Dołączenie plików: `Code2.c`, `ObliczObjetosc.c`, `ObliczPole.c`, `ObliczObjetosc.h`, `ObliczPole.h` oraz `README.md`.
 
-- [x] ```commit 2. → Dodanie najprostszego pliku Makefile.```
+- [x] [```commit 2. → Dodanie najprostszego pliku Makefile.```](https://github.com/97703/Zadanie-2/commit/951a75513ef73c9a061e79249e13987db48176a8)
 
 	▶ Dołączenie pliku: `Makefile`.
 	
-- [x] ```commit 3. → Rozbudowa pliku Makefile o zmienne automatyczne.```
+- [x] [```commit 3. → Rozbudowa pliku Makefile o zmienne automatyczne.```](https://github.com/97703/Zadanie-2/commit/d2c20cd97794976ec46c48c483f333e31fe88d53)
 	
 	▶ Aktulizacja pliku `Makefile` o zmienne automatyczne.
 	
-- [x] ```commit 4. → Rozbudowa pliku Makefile o regułu przyrostków.```
+- [x] [```commit 4. → Rozbudowa pliku Makefile o regułu przyrostków.```](https://github.com/97703/Zadanie-2/commit/8ca03064af6ff3cfdfda119874d9b2422dab6770)
 	
 	▶ Aktulizacja pliku `Makefile` o reguły przyrostków.
 	
-- [x] ```commit 5. → Rozbudowa pliku Makefile o reguły wzorca.```
+- [x] [```commit 5. → Rozbudowa pliku Makefile o reguły wzorca.```](https://github.com/97703/Zadanie-2/commit/53e291dde3d8aba3b1f5829ee20156ad903c7527)
 
 	▶ Aktulizacja pliku `Makefile` o reguły wzorca.
 
 <br />
 
 ***[DODATKOWY — NIEWYMAGANY]***
-- [x] ```commit 6. → Implementacja drzewa.```
+- [x] ```commit 6. → Implementacja drzewa.``` <sup>[OBECNY COMMIT]</sup>
 	
 	▶ Utworzenie nowych katalogów: `lib`, `src`, `include` oraz `bin`.\
 	▶ Aktulizacja pliku `Makefile` o nowe katalogi docelowe.\
@@ -172,3 +172,5 @@ Zaprezentowane i umieszczone w repozytorium pliki spełniają wymogi zadania, to
 Wykazano więc zgodność zrealizowanego projektu z założeniami zadania.
 
 <br />
+
+

@@ -1,5 +1,7 @@
 # PLIK MAKEFILE #
 
+# wykorzystane zmienne standardowe:
+
 AR = ar
 CC = gcc
 CFLAGS = -g
@@ -7,47 +9,64 @@ CFLAGS = -g
 PROGRAM = Code2
 CLR = rm -f
 CLR_F = ./*.o ./*.a ./*.so ./$(PROGRAM)
-LIBPATH=.
+LIBPATH=./lib
+
+# zmienna tworzenia bibliotek w folderze ./lib
+
+LIB_C=./lib/
+
+# zmienna biblioteki statycznej
+
+LIB_ST=libObliczPole.a
+
+# zmienna biblioteki dynamicznej
+
+LIB_DY=libObliczObjetosc.so
 
 # $< $@ $^
 
  .PHONY: clean
  .SUFFIXES: .c .o .a .so .h
 
-# reguła dla plików bez przyrostków (program główny Code2)
+# przeszukaj katalogi w poszukiwaniu plików
+
+vpath %.c ./src
+vpath %.h ./include
 
 %: %.o
-	$(CC) $(CFLAGS) -o $@ $^ -Wl,-rpath=$(LIBPATH)
-
-# reguła dla plików z przyrostkami .o
-
+	$(CC) $(CFLAGS) -o ./bin/$@ $^ -I./include -Wl,-rpath=$(LIBPATH)
+	
 %.o: %.c
-	$(CC) $(CFLAGS) -c $<
+	$(CC) $(CFLAGS) -c $< -I./include
 
-# reguła dla biblioteki statycznej
+# skompiluj bibliotekę statyczną w ./lab/
 
-lib%.a: %.o	
+$(LIB_C)lib%.a: %.o	
 	$(AR) cr $@ $^
 
-# reguła dla biblioteki dynamicznej
+# skompiluj bibliotekę dynamiczną w ./lab/
 
-lib%.so: %.o
+$(LIB_C)lib%.so: %.o
 	$(CC) $(CFLAGS) -shared -o $@ $<
-
-# reguła dla pliku biblioteki statycznej
 
 %STATIC.o: %.c
 	$(CC) $(CFLAGS) -c $<
 
-# reguła dla pliku biblioteki dynamicznej
-
 %DYNAMIC.o: %.c
 	$(CC) $(CFLAGS) -c -fPIC $<
 
-$(PROGRAM): Code2.o libObliczPole.a libObliczObjetosc.so
+# skorzystaj z biblioteki dynamicznej i dynamicznej z ./lib/ w celu skompilowania programu Code2
+
+$(PROGRAM): Code2.o $(LIB_C)$(LIB_ST) $(LIB_C)$(LIB_DY)
 Code2.o: Code2.c
-libObliczPole.a: ObliczPole.o
-libObiczObjetosc.so: ObliczObjetosc.o
+
+# utwórz bibliotekę statyczną w ./lib/
+
+$(LIB_C)$(LIB_ST): ObliczPole.o
+
+# utwórz bibliotekę dynamiczną w ./lib/
+
+$(LIB_C)$(LIB_DY): ObliczObjetosc.o
 ObliczPoleSTATIC.o: ObliczPole.c
 ObliczObjetoscDYNAMIC.o: ObliczObjetosc.c
 
