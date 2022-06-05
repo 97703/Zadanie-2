@@ -1,0 +1,6 @@
+#ifndef POLICZOBJETOSC_H_INCLUDED
+#define POLICZOBJETOSC_H_INCLUDED
+
+void obliczObjetosc();
+
+#endif // POLICZOBJETOSC_H_INCLUDED
